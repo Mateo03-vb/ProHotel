@@ -23,11 +23,18 @@ namespace ProHotel.Modelos
         [ForeignKey("Reserva")]
         [Column("id_reserva")]
         public int idReserva { get; set; }
-        public Reserva? Reserva { get; set; }
+       
 
         [ForeignKey("Habitacion")]
         [Column("id_habitacion")]
         public int idHabitacion { get; set; }
+        
+
+        //objetos de navegacion
+        public Reserva? Reserva { get; set; }
         public Habitacion? Habitacion { get; set; }
+
+        //relaciones
+        public List<Consumo>? Consumos { get; set; } = new List<Consumo>();
     }
 }

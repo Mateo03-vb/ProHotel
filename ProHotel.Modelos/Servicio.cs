@@ -28,5 +28,8 @@ namespace ProHotel.Modelos
         [Column("precio", TypeName = "numeric(10,2)")]
         [Required(ErrorMessage = "El precio es obligatorio")]
         public decimal precio { get; set; }
+
+        //relaciones
+        public List<Consumo>? Consumos { get; set; } = new List<Consumo>();
     }
 }

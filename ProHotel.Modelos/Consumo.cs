@@ -30,11 +30,15 @@ namespace ProHotel.Modelos
         [ForeignKey("DetalleReserva")]
         [Column("id_detalle_reserva")]
         public int idDetalleReserva { get; set; }
-        public DetalleReserva? DetalleReserva { get; set; }
+        
 
         [ForeignKey("Servicio")]
         [Column("id_servicio")]
         public int idServicio { get; set; }
+        
+
+        //objetos de navegacion
+        public DetalleReserva? DetalleReserva { get; set; }
         public Servicio? Servicio { get; set; }
     }
 }

@@ -44,5 +44,8 @@ namespace ProHotel.Modelos
         [Required(ErrorMessage = "El teléfono es obligatorio")]
         [MaxLength(20)]
         public string telefono { get; set; }
+
+        //relaciones 
+        public List<Reserva>? Reservas { get; set; } = new List<Reserva>();
     }
 }

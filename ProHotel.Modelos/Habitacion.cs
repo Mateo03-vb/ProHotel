@@ -34,5 +34,8 @@ namespace ProHotel.Modelos
         [Column("id_tipo_habitacion")]
         public int idTipoHabitacion { get; set; }
         public TipoHabitacion? TipoHabitacion { get; set; }
+
+        //relaciones
+        public List<DetalleReserva>? DetallesReserva { get; set; } = new List<DetalleReserva>();
     }
 }

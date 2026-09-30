@@ -38,5 +38,8 @@ namespace ProHotel.Modelos
         [Column("activo")]
         [Required(ErrorMessage = "El estado activo es obligatorio")]
         public bool activo { get; set; }
+
+        //relaciones
+        public List<Reserva>? Reservas { get; set; } = new List<Reserva>();
     }
 }

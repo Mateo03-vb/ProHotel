@@ -39,13 +39,16 @@ namespace ProHotel.Modelos
         [ForeignKey("Cliente")]
         [Column("id_cliente")]
         public int idCliente { get; set; }
-        public Cliente? Cliente { get; set; }
 
         [ForeignKey("Empleado")]
         [Column("id_empleado")]
         public int idEmpleado { get; set; }
+        //objetos de navegacion
+        public Cliente? Cliente { get; set; }
         public Empleado? Empleado { get; set; }
 
-        
+        //relaciones
+        public List<DetalleReserva>? DetallesReserva { get; set; } = new List<DetalleReserva>();
+
     }
 }

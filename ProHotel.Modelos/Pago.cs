@@ -35,5 +35,7 @@ namespace ProHotel.Modelos
         [Column("id_reserva")]
         public int idReserva { get; set; }
         public Reserva? Reserva { get; set; }
+
+        
     }
 }

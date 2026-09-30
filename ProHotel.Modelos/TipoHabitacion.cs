@@ -32,6 +32,7 @@ namespace ProHotel.Modelos
         [Required(ErrorMessage = "El precio base es obligatorio")]
         public decimal precioBaseNoche { get; set; }
 
-
+        //relaciones
+        public List<Habitacion>? Habitaciones { get; set; } = new List<Habitacion>();
     }
 }
