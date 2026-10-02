@@ -16,14 +16,20 @@ public class DetalleReservasController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DetalleReserva>>> GetDetalleReserva()
     {
-        return await _context.DetalleReserva.ToListAsync();
+        return await _context.DetalleReserva
+            .Include(d => d.Reserva).ThenInclude(r => r.Cliente)
+            .Include(d => d.Habitacion).ThenInclude(h => h.TipoHabitacion)
+            .ToListAsync();
     }
 
     // GET: api/DetalleReserva/5
     [HttpGet("{iddetallereserva}")]
     public async Task<ActionResult<DetalleReserva>> GetDetalleReserva(int iddetallereserva)
     {
-        var detallereserva = await _context.DetalleReserva.FindAsync(iddetallereserva);
+        var detallereserva = await _context.DetalleReserva
+            .Include(d => d.Reserva).ThenInclude(r => r.Cliente)
+            .Include(d => d.Habitacion).ThenInclude(h => h.TipoHabitacion)
+            .FirstOrDefaultAsync(d => d.IdDetalleReserva == iddetallereserva);
 
         if (detallereserva == null)
         {

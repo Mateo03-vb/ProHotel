@@ -1,0 +1,70 @@
+@model ProHotel.Modelos.Consumo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Consumo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Servicio
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@(Model.Servicio != null ? Model.Servicio.nombre : "Servicio #" + Model.idServicio)</strong>
+            @if (Model.Servicio != null)
+            {
+                <span class="text-muted"> - @Model.Servicio.descripcion</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Cantidad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.cantidad
+        </dd>
+
+        <dt class="col-sm-3">
+            Precio Unitario
+        </dt>
+        <dd class="col-sm-9">
+            @Model.precioUnitario.ToString("C2")
+        </dd>
+
+        <dt class="col-sm-3">
+            Subtotal
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@((Model.cantidad * Model.precioUnitario).ToString("C2"))</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha de Consumo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaConsumo.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Habitación / Reserva
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.DetalleReserva?.Habitacion != null)
+            {
+                <span>Hab. @Model.DetalleReserva.Habitacion.numero (Piso @Model.DetalleReserva.Habitacion.piso) - Reserva #@Model.DetalleReserva.idReserva</span>
+            }
+            else
+            {
+                <span>Detalle #@Model.idDetalleReserva</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idConsumo">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

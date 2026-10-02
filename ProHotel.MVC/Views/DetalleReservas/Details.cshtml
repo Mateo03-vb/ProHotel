@@ -1,0 +1,50 @@
+@model ProHotel.Modelos.DetalleReserva
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DetalleReserva</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Precio Noche Pactado
+        </dt>
+        <dd class="col-sm-9">
+            @Model.PrecioNochePactado.ToString("C2")
+        </dd>
+
+        <dt class="col-sm-3">
+            Reserva
+        </dt>
+        <dd class="col-sm-9">
+            <strong>#@Model.idReserva</strong>
+            @if (Model.Reserva?.Cliente != null)
+            {
+                <span> - @Model.Reserva.Cliente.nombre @Model.Reserva.Cliente.apellido</span>
+                <span class="text-muted"> (Check-in: @Model.Reserva.fechaCheckIn.ToString("dd/MM/yyyy") | Check-out: @Model.Reserva.fechaCheckOut.ToString("dd/MM/yyyy"))</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Habitación
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Habitacion != null)
+            {
+                <span>Habitación @Model.Habitacion.numero - Piso @Model.Habitacion.piso (@Model.Habitacion.TipoHabitacion?.nombre)</span>
+            }
+            else
+            {
+                <span>#@Model.idHabitacion</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdDetalleReserva">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

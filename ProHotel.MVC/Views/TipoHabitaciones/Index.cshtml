@@ -1,0 +1,45 @@
+@model IEnumerable<ProHotel.Modelos.TipoHabitacion>
+
+@{
+    ViewData["Title"] = "Tipos de Habitaciones";
+}
+
+<h1>Tipos de Habitaciones</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Tipo</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nombre del Tipo</th>
+            <th>Descripción</th>
+            <th>Capacidad</th>
+            <th>Precio Base / Noche</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <strong>@item.nombre</strong>
+            </td>
+            <td>
+                @item.descripcion
+            </td>
+            <td>
+                @item.capacidadPersonas personas
+            </td>
+            <td>
+                <strong>@item.precioBaseNoche.ToString("C2")</strong>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idTipoHabitacion" class="btn btn-sm btn-outline-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.idTipoHabitacion" class="btn btn-sm btn-outline-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.idTipoHabitacion" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

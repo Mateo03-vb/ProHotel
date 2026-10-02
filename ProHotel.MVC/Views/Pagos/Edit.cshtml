@@ -1,0 +1,59 @@
+@model ProHotel.Modelos.Pago
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Pago</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="idPago" />
+            <div class="form-group mb-3">
+                <label asp-for="idReserva" class="control-label">ID Reserva</label>
+                <input asp-for="idReserva" class="form-control" type="number" />
+                <span asp-validation-for="idReserva" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="monto" class="control-label">Monto</label>
+                <input asp-for="monto" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="monto" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="metodoPago" class="control-label">Método de Pago</label>
+                <select asp-for="metodoPago" class="form-select">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                    <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+                    <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                </select>
+                <span asp-validation-for="metodoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="fechaPago" class="control-label">Fecha de Pago</label>
+                <input asp-for="fechaPago" class="form-control" type="date" />
+                <span asp-validation-for="fechaPago" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="referenciaTransaccion" class="control-label">Referencia de Transacción</label>
+                <input asp-for="referenciaTransaccion" class="form-control" />
+                <span asp-validation-for="referenciaTransaccion" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

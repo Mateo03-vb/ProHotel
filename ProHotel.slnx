@@ -2,4 +2,5 @@
   <Project Path="ProHotel.API/ProHotel.API.csproj" Id="6aef3d52-a2db-4cea-bd3d-e6897b6353cb" />
   <Project Path="ProHotel.Consumer/ProHotel.Consumer.csproj" Id="d8e296f0-5437-46fc-a438-05aa0f46afc8" />
   <Project Path="ProHotel.Modelos/ProHotel.Modelos.csproj" />
+  <Project Path="ProHotel.MVC/ProHotel.MVC.csproj" Id="9da49a27-2ff4-410e-93c9-7a15c6b3fc79" />
 </Solution>

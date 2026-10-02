@@ -1,0 +1,52 @@
+@model ProHotel.Modelos.Cliente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Tipo de Documento
+        </dt>
+        <dd class="col-sm-9">
+            @Model.tipoDocumento
+        </dd>
+
+        <dt class="col-sm-3">
+            Número de Documento
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.numeroDocumento</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Nombre Completo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.nombre @Model.apellido
+        </dd>
+
+        <dt class="col-sm-3">
+            Email
+        </dt>
+        <dd class="col-sm-9">
+            @Model.email
+        </dd>
+
+        <dt class="col-sm-3">
+            Teléfono
+        </dt>
+        <dd class="col-sm-9">
+            @Model.telefono
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idCliente">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,47 @@
+@model ProHotel.Modelos.Empleado
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Cédula
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.cedula</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Nombre Completo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.nombre @Model.apellido
+        </dd>
+
+        <dt class="col-sm-3">
+            Cargo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.cargo
+        </dd>
+
+        <dt class="col-sm-3">
+            Estado
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.activo ? "bg-success" : "bg-danger")">
+                @(Model.activo ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idEmpleado">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

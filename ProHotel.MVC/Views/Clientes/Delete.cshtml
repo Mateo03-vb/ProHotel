@@ -1,0 +1,54 @@
+@model ProHotel.Modelos.Cliente
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Tipo de Documento
+        </dt>
+        <dd class="col-sm-9">
+            @Model.tipoDocumento
+        </dd>
+
+        <dt class="col-sm-3">
+            Número de Documento
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.numeroDocumento</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Nombre Completo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.nombre @Model.apellido
+        </dd>
+
+        <dt class="col-sm-3">
+            Email
+        </dt>
+        <dd class="col-sm-9">
+            @Model.email
+        </dd>
+
+        <dt class="col-sm-3">
+            Teléfono
+        </dt>
+        <dd class="col-sm-9">
+            @Model.telefono
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idCliente" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

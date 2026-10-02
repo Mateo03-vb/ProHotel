@@ -1,0 +1,69 @@
+@model ProHotel.Modelos.Consumo
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Consumo</h4>
+    <hr />
+    <dl class="row">
+    <dl class="row">
+        <dt class="col-sm-3">
+            Servicio
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@(Model.Servicio != null ? Model.Servicio.nombre : "Servicio #" + Model.idServicio)</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Cantidad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.cantidad
+        </dd>
+
+        <dt class="col-sm-3">
+            Precio Unitario
+        </dt>
+        <dd class="col-sm-9">
+            @Model.precioUnitario.ToString("C2")
+        </dd>
+
+        <dt class="col-sm-3">
+            Subtotal
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@((Model.cantidad * Model.precioUnitario).ToString("C2"))</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha de Consumo
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaConsumo.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Habitación / Reserva
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.DetalleReserva?.Habitacion != null)
+            {
+                <span>Hab. @Model.DetalleReserva.Habitacion.numero - Reserva #@Model.DetalleReserva.idReserva</span>
+            }
+            else
+            {
+                <span>Detalle #@Model.idDetalleReserva</span>
+            }
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idConsumo" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

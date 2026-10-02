@@ -1,0 +1,52 @@
+@model ProHotel.Modelos.DetalleReserva
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.DetalleReserva</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Precio Noche Pactado
+        </dt>
+        <dd class="col-sm-9">
+            @Model.PrecioNochePactado.ToString("C2")
+        </dd>
+
+        <dt class="col-sm-3">
+            Reserva
+        </dt>
+        <dd class="col-sm-9">
+            <strong>#@Model.idReserva</strong>
+            @if (Model.Reserva?.Cliente != null)
+            {
+                <span> - @Model.Reserva.Cliente.nombre @Model.Reserva.Cliente.apellido</span>
+                <span class="text-muted"> (Check-in: @Model.Reserva.fechaCheckIn.ToString("dd/MM/yyyy") | Check-out: @Model.Reserva.fechaCheckOut.ToString("dd/MM/yyyy"))</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Habitación
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Habitacion != null)
+            {
+                <span>Habitación @Model.Habitacion.numero - Piso @Model.Habitacion.piso (@Model.Habitacion.TipoHabitacion?.nombre)</span>
+            }
+            else
+            {
+                <span>#@Model.idHabitacion</span>
+            }
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdDetalleReserva" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

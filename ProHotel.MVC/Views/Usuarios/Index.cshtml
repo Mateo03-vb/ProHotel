@@ -1,0 +1,47 @@
+@model IEnumerable<ProHotel.Modelos.Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>Usuarios del Sistema</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Usuario</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nombre de Usuario</th>
+            <th>Empleado Asociado</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <strong>@item.username</strong>
+            </td>
+            <td>
+                @(item.Empleado != null ? item.Empleado.nombre + " " + item.Empleado.apellido + " (" + item.Empleado.cargo + ")" : "Empleado #" + item.idEmpleado)
+            </td>
+            <td>
+                <span class="badge bg-secondary">@item.rol</span>
+            </td>
+            <td>
+                <span class="badge @(item.activo ? "bg-success" : "bg-danger")">
+                    @(item.activo ? "Activo" : "Inactivo")
+                </span>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idUsuario" class="btn btn-sm btn-outline-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.idUsuario" class="btn btn-sm btn-outline-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.idUsuario" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

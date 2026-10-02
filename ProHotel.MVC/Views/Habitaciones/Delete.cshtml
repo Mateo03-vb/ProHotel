@@ -1,0 +1,53 @@
+@model ProHotel.Modelos.Habitacion
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Habitacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Número de Habitación
+        </dt>
+        <dd class="col-sm-9">
+            <strong>Habitación @Model.numero</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Piso
+        </dt>
+        <dd class="col-sm-9">
+            Piso @Model.piso
+        </dd>
+
+        <dt class="col-sm-3">
+            Tipo de Habitación
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.TipoHabitacion != null ? Model.TipoHabitacion.nombre : "Tipo #" + Model.idTipoHabitacion)
+            @if (Model.TipoHabitacion != null)
+            {
+                <span class="text-muted"> (Precio base: @Model.TipoHabitacion.precioBaseNoche.ToString("C2") | Capacidad: @Model.TipoHabitacion.capacidadPersonas personas)</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Estado
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.estado?.ToLower() == "disponible" ? "bg-success" : (Model.estado?.ToLower() == "ocupada" ? "bg-danger" : "bg-warning text-dark"))">
+                @Model.estado
+            </span>
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idHabitacion" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

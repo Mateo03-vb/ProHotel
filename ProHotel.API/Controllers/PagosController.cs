@@ -16,14 +16,18 @@ public class PagosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Pago>>> GetPago()
     {
-        return await _context.Pago.ToListAsync();
+        return await _context.Pago
+            .Include(p => p.Reserva).ThenInclude(r => r.Cliente)
+            .ToListAsync();
     }
 
     // GET: api/Pago/5
     [HttpGet("{idpago}")]
     public async Task<ActionResult<Pago>> GetPago(int idpago)
     {
-        var pago = await _context.Pago.FindAsync(idpago);
+        var pago = await _context.Pago
+            .Include(p => p.Reserva).ThenInclude(r => r.Cliente)
+            .FirstOrDefaultAsync(p => p.idPago == idpago);
 
         if (pago == null)
         {

@@ -16,14 +16,22 @@ public class ConsumosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Consumo>>> GetConsumo()
     {
-        return await _context.Consumo.ToListAsync();
+        return await _context.Consumo
+            .Include(c => c.DetalleReserva).ThenInclude(d => d.Habitacion)
+            .Include(c => c.DetalleReserva).ThenInclude(d => d.Reserva).ThenInclude(r => r.Cliente)
+            .Include(c => c.Servicio)
+            .ToListAsync();
     }
 
     // GET: api/Consumo/5
     [HttpGet("{idconsumo}")]
     public async Task<ActionResult<Consumo>> GetConsumo(int idconsumo)
     {
-        var consumo = await _context.Consumo.FindAsync(idconsumo);
+        var consumo = await _context.Consumo
+            .Include(c => c.DetalleReserva).ThenInclude(d => d.Habitacion)
+            .Include(c => c.DetalleReserva).ThenInclude(d => d.Reserva).ThenInclude(r => r.Cliente)
+            .Include(c => c.Servicio)
+            .FirstOrDefaultAsync(c => c.idConsumo == idconsumo);
 
         if (consumo == null)
         {

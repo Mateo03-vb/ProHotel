@@ -1,0 +1,40 @@
+@model ProHotel.Modelos.Servicio
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Servicio</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Nombre del Servicio
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.nombre</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Descripción
+        </dt>
+        <dd class="col-sm-9">
+            @Model.descripcion
+        </dd>
+
+        <dt class="col-sm-3">
+            Precio
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.precio.ToString("C2")</strong>
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idServicio" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

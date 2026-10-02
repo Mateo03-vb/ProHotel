@@ -1,0 +1,60 @@
+@model IEnumerable<ProHotel.Modelos.Consumo>
+
+@{
+    ViewData["Title"] = "Consumos";
+}
+
+<h1>Consumos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Nuevo Consumo</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Servicio</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+            <th>Fecha Consumo</th>
+            <th>Habitación / Reserva</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <strong>@(item.Servicio != null ? item.Servicio.nombre : "Servicio #" + item.idServicio)</strong>
+            </td>
+            <td>
+                @item.cantidad
+            </td>
+            <td>
+                @item.precioUnitario.ToString("C2")
+            </td>
+            <td>
+                <strong>@((item.cantidad * item.precioUnitario).ToString("C2"))</strong>
+            </td>
+            <td>
+                @item.fechaConsumo.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @if (item.DetalleReserva?.Habitacion != null)
+                {
+                    <span>Hab. @item.DetalleReserva.Habitacion.numero (Reserva #@item.DetalleReserva.idReserva)</span>
+                }
+                else
+                {
+                    <span>Detalle #@item.idDetalleReserva</span>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idConsumo" class="btn btn-sm btn-outline-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.idConsumo" class="btn btn-sm btn-outline-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.idConsumo" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,43 @@
+@model ProHotel.Modelos.DetalleReserva
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DetalleReserva</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="PrecioNochePactado" class="control-label">Precio Noche Pactado</label>
+                <input asp-for="PrecioNochePactado" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="PrecioNochePactado" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="idReserva" class="control-label">ID Reserva</label>
+                <input asp-for="idReserva" class="form-control" type="number" />
+                <span asp-validation-for="idReserva" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="idHabitacion" class="control-label">ID Habitación</label>
+                <input asp-for="idHabitacion" class="form-control" type="number" />
+                <span asp-validation-for="idHabitacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

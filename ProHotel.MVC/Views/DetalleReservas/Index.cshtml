@@ -1,0 +1,52 @@
+@model IEnumerable<ProHotel.Modelos.DetalleReserva>
+
+@{
+    ViewData["Title"] = "Detalles de Reservas";
+}
+
+<h1>Detalles de Reservas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Detalle</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Reserva</th>
+            <th>Habitación</th>
+            <th>Precio Noche Pactado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <strong>#@item.idReserva</strong>
+                @if (item.Reserva?.Cliente != null)
+                {
+                    <span> - @item.Reserva.Cliente.nombre @item.Reserva.Cliente.apellido</span>
+                }
+            </td>
+            <td>
+                @if (item.Habitacion != null)
+                {
+                    <span>Hab. @item.Habitacion.numero (@item.Habitacion.TipoHabitacion?.nombre)</span>
+                }
+                else
+                {
+                    <span>Habitación #@item.idHabitacion</span>
+                }
+            </td>
+            <td>
+                @item.PrecioNochePactado.ToString("C2")
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdDetalleReserva" class="btn btn-sm btn-outline-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.IdDetalleReserva" class="btn btn-sm btn-outline-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.IdDetalleReserva" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,115 @@
+
+using Microsoft.AspNetCore.Mvc;
+using ProHotel.Consumer;
+using ProHotel.Modelos;
+
+namespace ProHotel.MVC.Controllers
+{
+    public class DetalleReservasController : Controller
+    {
+        // GET: DETALLERESERVAS
+        public ActionResult Index()
+        {
+            var detalleReservas = CRUD<DetalleReserva>.GetAll();
+            return View(detalleReservas);
+        }
+
+        // GET: DETALLERESERVAS/Details/5
+        public ActionResult Details(int id)
+        {
+            var detalleReserva = CRUD<DetalleReserva>.GetByID(id);
+            if (detalleReserva == null)
+            {
+                return NotFound();
+            }
+            return View(detalleReserva);
+        }
+
+        // GET: DETALLERESERVAS/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: DETALLERESERVAS/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(DetalleReserva detalleReserva)
+        {
+            try
+            {
+                CRUD<DetalleReserva>.Create(detalleReserva);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception (e.g., log it, display an error message, etc.)
+                ModelState.AddModelError("", ex.Message);
+                return View(detalleReserva);
+            }
+        }
+
+        // GET: DETALLERESERVAS/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var detalleReserva = CRUD<DetalleReserva>.GetByID(id);
+            if (detalleReserva == null)
+            {
+                return NotFound();
+            }
+            return View(detalleReserva);
+        }
+
+        // POST: DETALLERESERVAS/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, DetalleReserva detalleReserva)
+        {
+            try
+            {
+                CRUD<DetalleReserva>.Update(id, detalleReserva);
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception (e.g., log it, display an error message, etc.)
+                ModelState.AddModelError("", ex.Message);
+                return View(detalleReserva);
+            }
+        }
+
+        // GET: DETALLERESERVAS/Delete/5
+        public ActionResult Delete(int id)
+        {
+            var detalleReserva = CRUD<DetalleReserva>.GetByID(id);
+            if (detalleReserva == null)
+            {
+                return NotFound();
+            }
+
+            return View(detalleReserva);
+        }
+
+        // POST: DETALLERESERVAS/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, DetalleReserva detalleReserva)
+        {
+            try
+            {
+                CRUD<DetalleReserva>.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(detalleReserva);
+            }
+        }
+    }
+}

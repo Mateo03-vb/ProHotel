@@ -1,0 +1,59 @@
+@model ProHotel.Modelos.Pago
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Pago</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Monto
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.monto.ToString("C2")</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Método de Pago
+        </dt>
+        <dd class="col-sm-9">
+            @Model.metodoPago
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha de Pago
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaPago.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Referencia de Transacción
+        </dt>
+        <dd class="col-sm-9">
+            @(string.IsNullOrEmpty(Model.referenciaTransaccion) ? "-" : Model.referenciaTransaccion)
+        </dd>
+
+        <dt class="col-sm-3">
+            Reserva / Cliente
+        </dt>
+        <dd class="col-sm-9">
+            <strong>Reserva #@Model.idReserva</strong>
+            @if (Model.Reserva?.Cliente != null)
+            {
+                <span> - @Model.Reserva.Cliente.nombre @Model.Reserva.Cliente.apellido</span>
+                <span class="text-muted"> (Check-in: @Model.Reserva.fechaCheckIn.ToString("dd/MM/yyyy"))</span>
+            }
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idPago" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

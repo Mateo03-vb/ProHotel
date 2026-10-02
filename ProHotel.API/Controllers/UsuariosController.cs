@@ -16,14 +16,18 @@ public class UsuariosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
     {
-        return await _context.Usuario.ToListAsync();
+        return await _context.Usuario
+            .Include(u => u.Empleado)
+            .ToListAsync();
     }
 
     // GET: api/Usuario/5
     [HttpGet("{idusuario}")]
     public async Task<ActionResult<Usuario>> GetUsuario(int idusuario)
     {
-        var usuario = await _context.Usuario.FindAsync(idusuario);
+        var usuario = await _context.Usuario
+            .Include(u => u.Empleado)
+            .FirstOrDefaultAsync(u => u.idUsuario == idusuario);
 
         if (usuario == null)
         {

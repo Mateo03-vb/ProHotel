@@ -1,0 +1,108 @@
+@model ProHotel.Modelos.Reserva
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            # Reserva
+        </dt>
+        <dd class="col-sm-9">
+            <strong>#@Model.idReserva</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Cliente
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Cliente != null)
+            {
+                <strong>@Model.Cliente.nombre @Model.Cliente.apellido</strong>
+                <span class="text-muted"> (Doc: @Model.Cliente.numeroDocumento | Tel: @Model.Cliente.telefono | Email: @Model.Cliente.email)</span>
+            }
+            else
+            {
+                <span>Cliente #@Model.idCliente</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Empleado que atendió
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Empleado != null)
+            {
+                <span>@Model.Empleado.nombre @Model.Empleado.apellido (@Model.Empleado.cargo)</span>
+            }
+            else
+            {
+                <span>Empleado #@Model.idEmpleado</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha de Reserva
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaReserva.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha Check-In
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaCheckIn.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Fecha Check-Out
+        </dt>
+        <dd class="col-sm-9">
+            @Model.fechaCheckOut.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-3">
+            Estado
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.estado?.ToLower() == "confirmada" ? "bg-success" : (Model.estado?.ToLower() == "cancelada" ? "bg-danger" : "bg-primary"))">
+                @Model.estado
+            </span>
+        </dd>
+
+        <dt class="col-sm-3">
+            Monto Total
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.montoTotal.ToString("C2")</strong>
+        </dd>
+
+        @if (Model.DetallesReserva != null && Model.DetallesReserva.Any())
+        {
+            <dt class="col-sm-3">
+                Habitaciones Reservadas
+            </dt>
+            <dd class="col-sm-9">
+                <ul class="list-unstyled">
+                    @foreach (var d in Model.DetallesReserva)
+                    {
+                        <li>
+                            Habitación @(d.Habitacion != null ? d.Habitacion.numero + " (" + d.Habitacion.TipoHabitacion?.nombre + ")" : "#" + d.idHabitacion)
+                            - Precio pactado: @d.PrecioNochePactado.ToString("C2")
+                        </li>
+                    }
+                </ul>
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.idReserva">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

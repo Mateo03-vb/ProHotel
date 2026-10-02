@@ -16,14 +16,18 @@ public class HabitacionesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Habitacion>>> GetHabitacion()
     {
-        return await _context.Habitacion.ToListAsync();
+        return await _context.Habitacion
+            .Include(h => h.TipoHabitacion)
+            .ToListAsync();
     }
 
     // GET: api/Habitacion/5
     [HttpGet("{idhabitacion}")]
     public async Task<ActionResult<Habitacion>> GetHabitacion(int idhabitacion)
     {
-        var habitacion = await _context.Habitacion.FindAsync(idhabitacion);
+        var habitacion = await _context.Habitacion
+            .Include(h => h.TipoHabitacion)
+            .FirstOrDefaultAsync(h => h.idHabitacion == idhabitacion);
 
         if (habitacion == null)
         {

@@ -1,0 +1,72 @@
+@model IEnumerable<ProHotel.Modelos.Reserva>
+
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<h1>Reservas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Reserva</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th># Reserva</th>
+            <th>Cliente</th>
+            <th>Empleado</th>
+            <th>Fecha Reserva</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Estado</th>
+            <th>Monto Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <strong>#@item.idReserva</strong>
+            </td>
+            <td>
+                @if (item.Cliente != null)
+                {
+                    <span>@item.Cliente.nombre @item.Cliente.apellido</span>
+                    <br />
+                    <small class="text-muted">Doc: @item.Cliente.numeroDocumento</small>
+                }
+                else
+                {
+                    <span>Cliente #@item.idCliente</span>
+                }
+            </td>
+            <td>
+                @(item.Empleado != null ? item.Empleado.nombre + " " + item.Empleado.apellido : "Empleado #" + item.idEmpleado)
+            </td>
+            <td>
+                @item.fechaReserva.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.fechaCheckIn.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.fechaCheckOut.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                <span class="badge @(item.estado?.ToLower() == "confirmada" ? "bg-success" : (item.estado?.ToLower() == "cancelada" ? "bg-danger" : "bg-primary"))">
+                    @item.estado
+                </span>
+            </td>
+            <td>
+                <strong>@item.montoTotal.ToString("C2")</strong>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idReserva" class="btn btn-sm btn-outline-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.idReserva" class="btn btn-sm btn-outline-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.idReserva" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

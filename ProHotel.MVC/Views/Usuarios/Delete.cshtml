@@ -1,0 +1,56 @@
+@model ProHotel.Modelos.Usuario
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProHotel.Modelos.Usuario</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Nombre de Usuario
+        </dt>
+        <dd class="col-sm-9">
+            <strong>@Model.username</strong>
+        </dd>
+
+        <dt class="col-sm-3">
+            Empleado Asociado
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Empleado != null)
+            {
+                <span>@Model.Empleado.nombre @Model.Empleado.apellido - Cargo: @Model.Empleado.cargo</span>
+            }
+            else
+            {
+                <span>Empleado #@Model.idEmpleado</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Rol
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge bg-secondary">@Model.rol</span>
+        </dd>
+
+        <dt class="col-sm-3">
+            Estado
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.activo ? "bg-success" : "bg-danger")">
+                @(Model.activo ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="idUsuario" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
