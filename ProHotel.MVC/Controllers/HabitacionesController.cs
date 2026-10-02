@@ -1,10 +1,12 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProHotel.Consumer;
 using ProHotel.Modelos;
 
 namespace ProHotel.MVC.Controllers
 {
+    [Authorize]
     public class HabitacionesController : Controller
     {
         // GET: HABITACIONES

@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProHotel.Consumer;
@@ -6,6 +7,7 @@ using ProHotel.Modelos;
 
 namespace ProHotel.MVC.Controllers
 {
+    [Authorize]
     public class ConsumosController : Controller
     {// GET: CONSUMOS
         public ActionResult Index()

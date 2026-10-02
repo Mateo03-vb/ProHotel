@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ProHotel.Modelos;
 using ProHotel.Consumer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProHotel.MVC.Controllers
 {
+    [Authorize]
 public class ClientesController : Controller
 {
 

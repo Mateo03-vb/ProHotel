@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProHotel.Consumer;
 using ProHotel.Modelos; 
@@ -7,6 +8,7 @@ using System.Security.Claims;
 
 namespace ProHotel.MVC.Controllers
 {
+    
     public class AccountController : Controller
     {
         // GET: /Account/Login
@@ -34,7 +36,7 @@ namespace ProHotel.MVC.Controllers
                 
                 var usuarios = CRUD<Usuario>.GetAll();
 
-                /
+                
                 var usuario = usuarios.FirstOrDefault(u => u.username == username && u.activo == true);
 
                 // Validar credenciales
