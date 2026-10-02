@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using ProHotel.Consumer;
 using ProHotel.Modelos;
 namespace ProHotel.MVC
@@ -17,11 +18,21 @@ namespace ProHotel.MVC
             CRUD<TipoHabitacion>.Endpoint = "https://localhost:7161/api/TipoHabitaciones";
             CRUD<Usuario>.Endpoint = "https://localhost:7161/api/Usuarios";
 
+
+            
             var builder = WebApplication.CreateBuilder(args);
             
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //cookies por defecto 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/Login";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                });
 
             var app = builder.Build();
 
@@ -37,8 +48,10 @@ namespace ProHotel.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            //autenticacion y autorizacion
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.MapControllerRoute(
                 name: "default",

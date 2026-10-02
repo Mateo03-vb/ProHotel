@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Puedes inventar el nombre de la clase que prefieras */
+.mi-color-hotel {
+    color: #1e3a8a !important; /* El código hexadecimal que te guste */
+}
+
+.mi-fondo-navbar {
+    background-color: #0f172a !important;
+}

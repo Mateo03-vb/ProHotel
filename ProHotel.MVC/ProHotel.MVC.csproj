@@ -21,8 +21,4 @@
     <ProjectReference Include="..\ProHotel.Modelos\ProHotel.Modelos.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Temp\" />
-  </ItemGroup>
-
 </Project>

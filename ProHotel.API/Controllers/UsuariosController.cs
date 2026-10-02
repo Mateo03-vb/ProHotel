@@ -17,7 +17,7 @@ public class UsuariosController : ControllerBase
     public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
     {
         return await _context.Usuario
-            .Include(u => u.Empleado)
+            .Include(e => e.Empleado)
             .ToListAsync();
     }
 
