@@ -7,7 +7,7 @@ using ProHotel.Modelos;
 
 namespace ProHotel.MVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class EmpleadosController : Controller
     {
         // GET: EMPLEADOS

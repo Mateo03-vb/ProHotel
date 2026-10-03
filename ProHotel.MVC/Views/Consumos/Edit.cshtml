@@ -1,52 +1,64 @@
 @model ProHotel.Modelos.Consumo
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Consumo";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="m-0 text-primary fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Consumo</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="idConsumo" />
 
-<h4>Consumo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="idConsumo" />
-            <div class="form-group mb-3">
-                <label asp-for="idServicio" class="control-label">ID Servicio</label>
-                <input asp-for="idServicio" class="form-control" type="number" />
-                <span asp-validation-for="idServicio" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="idServicio" class="form-label fw-semibold">ID Servicio</label>
+                            <input asp-for="idServicio" class="form-control" type="number" />
+                            <span asp-validation-for="idServicio" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="idDetalleReserva" class="form-label fw-semibold">ID Detalle Reserva</label>
+                            <input asp-for="idDetalleReserva" class="form-control" type="number" />
+                            <span asp-validation-for="idDetalleReserva" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="cantidad" class="form-label fw-semibold">Cantidad</label>
+                            <input asp-for="cantidad" class="form-control" type="number" />
+                            <span asp-validation-for="cantidad" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="precioUnitario" class="form-label fw-semibold">Precio Unitario ($)</label>
+                            <input asp-for="precioUnitario" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="precioUnitario" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="fechaConsumo" class="form-label fw-semibold">Fecha de Consumo</label>
+                            <input asp-for="fechaConsumo" class="form-control" type="date" />
+                            <span asp-validation-for="fechaConsumo" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 mt-4 d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Volver a la lista
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="idDetalleReserva" class="control-label">ID Detalle Reserva</label>
-                <input asp-for="idDetalleReserva" class="form-control" type="number" />
-                <span asp-validation-for="idDetalleReserva" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="cantidad" class="control-label">Cantidad</label>
-                <input asp-for="cantidad" class="form-control" type="number" />
-                <span asp-validation-for="cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="precioUnitario" class="control-label">Precio Unitario</label>
-                <input asp-for="precioUnitario" class="form-control" type="number" step="0.01" />
-                <span asp-validation-for="precioUnitario" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="fechaConsumo" class="control-label">Fecha de Consumo</label>
-                <input asp-for="fechaConsumo" class="form-control" type="date" />
-                <span asp-validation-for="fechaConsumo" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

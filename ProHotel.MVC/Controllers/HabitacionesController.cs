@@ -1,6 +1,6 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProHotel.Consumer;
 using ProHotel.Modelos;
 
@@ -9,6 +9,16 @@ namespace ProHotel.MVC.Controllers
     [Authorize]
     public class HabitacionesController : Controller
     {
+        private void CargarTiposHabitacion(object? tipoSeleccionado = null)
+        {
+            var tipos = CRUD<TipoHabitacion>.GetAll() ?? new List<TipoHabitacion>();
+            ViewBag.TiposHabitacion = new SelectList(tipos.Select(t => new
+            {
+                t.idTipoHabitacion,
+                Descripcion = $"{t.nombre} - ${t.precioBaseNoche:0.00} (Capacidad: {t.capacidadPersonas} personas)"
+            }), "idTipoHabitacion", "Descripcion", tipoSeleccionado);
+        }
+
         // GET: HABITACIONES
         public ActionResult Index()
         {
@@ -30,12 +40,11 @@ namespace ProHotel.MVC.Controllers
         // GET: HABITACIONES/Create
         public ActionResult Create()
         {
+            CargarTiposHabitacion();
             return View();
         }
 
         // POST: HABITACIONES/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Habitacion habitacion)
@@ -47,7 +56,7 @@ namespace ProHotel.MVC.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarTiposHabitacion(habitacion.idTipoHabitacion);
                 ModelState.AddModelError("", ex.Message);
                 return View(habitacion);
             }
@@ -61,12 +70,11 @@ namespace ProHotel.MVC.Controllers
             {
                 return NotFound();
             }
+            CargarTiposHabitacion(habitacion.idTipoHabitacion);
             return View(habitacion);
         }
 
         // POST: HABITACIONES/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Habitacion habitacion)
@@ -75,11 +83,10 @@ namespace ProHotel.MVC.Controllers
             {
                 CRUD<Habitacion>.Update(id, habitacion);
                 return RedirectToAction(nameof(Index));
-
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarTiposHabitacion(habitacion.idTipoHabitacion);
                 ModelState.AddModelError("", ex.Message);
                 return View(habitacion);
             }

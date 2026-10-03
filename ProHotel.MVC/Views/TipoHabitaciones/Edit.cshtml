@@ -1,47 +1,58 @@
 @model ProHotel.Modelos.TipoHabitacion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Tipo de Habitación";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="m-0 text-primary fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Tipo de Habitación</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="idTipoHabitacion" />
 
-<h4>TipoHabitacion</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="idTipoHabitacion" />
-            <div class="form-group mb-3">
-                <label asp-for="nombre" class="control-label">Nombre del Tipo</label>
-                <input asp-for="nombre" class="form-control" />
-                <span asp-validation-for="nombre" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="nombre" class="form-label fw-semibold">Nombre del Tipo</label>
+                            <input asp-for="nombre" class="form-control" />
+                            <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="descripcion" class="form-label fw-semibold">Descripción</label>
+                            <textarea asp-for="descripcion" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="descripcion" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="capacidadPersonas" class="form-label fw-semibold">Capacidad de Personas</label>
+                            <input asp-for="capacidadPersonas" class="form-control" type="number" />
+                            <span asp-validation-for="capacidadPersonas" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="precioBaseNoche" class="form-label fw-semibold">Precio Base por Noche ($)</label>
+                            <input asp-for="precioBaseNoche" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="precioBaseNoche" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 mt-4 d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Volver a la lista
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="descripcion" class="control-label">Descripción</label>
-                <textarea asp-for="descripcion" class="form-control" rows="2"></textarea>
-                <span asp-validation-for="descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="capacidadPersonas" class="control-label">Capacidad de Personas</label>
-                <input asp-for="capacidadPersonas" class="form-control" type="number" />
-                <span asp-validation-for="capacidadPersonas" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="precioBaseNoche" class="control-label">Precio Base por Noche</label>
-                <input asp-for="precioBaseNoche" class="form-control" type="number" step="0.01" />
-                <span asp-validation-for="precioBaseNoche" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

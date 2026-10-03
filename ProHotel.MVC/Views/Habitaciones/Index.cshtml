@@ -4,52 +4,66 @@
     ViewData["Title"] = "Habitaciones";
 }
 
-<h1>Habitaciones</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Crear Nueva Habitación</a>
-</p>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Número</th>
-            <th>Piso</th>
-            <th>Tipo de Habitación</th>
-            <th>Precio Base / Noche</th>
-            <th>Capacidad</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <strong>Habitación @item.numero</strong>
-            </td>
-            <td>
-                Piso @item.piso
-            </td>
-            <td>
-                @(item.TipoHabitacion != null ? item.TipoHabitacion.nombre : "Tipo #" + item.idTipoHabitacion)
-            </td>
-            <td>
-                @(item.TipoHabitacion != null ? item.TipoHabitacion.precioBaseNoche.ToString("C2") : "-")
-            </td>
-            <td>
-                @(item.TipoHabitacion != null ? item.TipoHabitacion.capacidadPersonas + " pers." : "-")
-            </td>
-            <td>
-                <span class="badge @(item.estado?.ToLower() == "disponible" ? "bg-success" : (item.estado?.ToLower() == "ocupada" ? "bg-danger" : "bg-warning text-dark"))">
-                    @item.estado
-                </span>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-warning">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-info">Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-danger">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 text-primary fw-bold"><i class="bi bi-door-closed me-2"></i>Gestión de Habitaciones</h4>
+        <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Crear Nueva Habitación</a>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center m-4">
+                <i class="bi bi-info-circle me-2"></i>No hay registros disponibles.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle shadow-sm rounded mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Número</th>
+                            <th>Piso</th>
+                            <th>Tipo de Habitación</th>
+                            <th>Precio Base / Noche</th>
+                            <th>Capacidad</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    <strong>Habitación @item.numero</strong>
+                                </td>
+                                <td>
+                                    Piso @item.piso
+                                </td>
+                                <td>
+                                    @(item.TipoHabitacion != null ? item.TipoHabitacion.nombre : "Tipo #" + item.idTipoHabitacion)
+                                </td>
+                                <td>
+                                    @(item.TipoHabitacion != null ? item.TipoHabitacion.precioBaseNoche.ToString("C2") : "-")
+                                </td>
+                                <td>
+                                    @(item.TipoHabitacion != null ? item.TipoHabitacion.capacidadPersonas + " pers." : "-")
+                                </td>
+                                <td>
+                                    <span class="badge @(item.estado?.ToLower() == "disponible" ? "bg-success" : (item.estado?.ToLower() == "ocupada" ? "bg-danger" : "bg-warning text-dark"))">
+                                        @item.estado
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i> Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i> Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.idHabitacion" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

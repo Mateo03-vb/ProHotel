@@ -1,6 +1,6 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProHotel.Consumer;
 using ProHotel.Modelos;
 
@@ -9,6 +9,24 @@ namespace ProHotel.MVC.Controllers
     [Authorize]
     public class DetalleReservasController : Controller
     {
+        private void CargarListasDesplegables(object? reservaSeleccionada = null, object? habitacionSeleccionada = null)
+        {
+            var reservas = CRUD<Reserva>.GetAll() ?? new List<Reserva>();
+            var habitaciones = CRUD<Habitacion>.GetAll() ?? new List<Habitacion>();
+
+            ViewBag.Reservas = new SelectList(reservas.Select(r => new
+            {
+                r.idReserva,
+                Descripcion = $"Reserva #{r.idReserva} - {(r.Cliente != null ? r.Cliente.nombre + " " + r.Cliente.apellido : "Cliente #" + r.idCliente)}"
+            }), "idReserva", "Descripcion", reservaSeleccionada);
+
+            ViewBag.Habitaciones = new SelectList(habitaciones.Select(h => new
+            {
+                h.idHabitacion,
+                Descripcion = $"Habitación {h.numero} (Piso {h.piso} - {h.TipoHabitacion?.nombre ?? "Tipo #" + h.idTipoHabitacion}) [{h.estado}]"
+            }), "idHabitacion", "Descripcion", habitacionSeleccionada);
+        }
+
         // GET: DETALLERESERVAS
         public ActionResult Index()
         {
@@ -30,12 +48,11 @@ namespace ProHotel.MVC.Controllers
         // GET: DETALLERESERVAS/Create
         public ActionResult Create()
         {
+            CargarListasDesplegables();
             return View();
         }
 
         // POST: DETALLERESERVAS/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(DetalleReserva detalleReserva)
@@ -47,7 +64,7 @@ namespace ProHotel.MVC.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarListasDesplegables(detalleReserva.idReserva, detalleReserva.idHabitacion);
                 ModelState.AddModelError("", ex.Message);
                 return View(detalleReserva);
             }
@@ -61,12 +78,11 @@ namespace ProHotel.MVC.Controllers
             {
                 return NotFound();
             }
+            CargarListasDesplegables(detalleReserva.idReserva, detalleReserva.idHabitacion);
             return View(detalleReserva);
         }
 
         // POST: DETALLERESERVAS/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, DetalleReserva detalleReserva)
@@ -79,7 +95,7 @@ namespace ProHotel.MVC.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarListasDesplegables(detalleReserva.idReserva, detalleReserva.idHabitacion);
                 ModelState.AddModelError("", ex.Message);
                 return View(detalleReserva);
             }

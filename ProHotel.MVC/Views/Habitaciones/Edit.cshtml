@@ -1,52 +1,65 @@
 @model ProHotel.Modelos.Habitacion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Habitación";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="m-0 text-primary fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Habitación</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="idHabitacion" />
 
-<h4>Habitacion</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="idHabitacion" />
-            <div class="form-group mb-3">
-                <label asp-for="numero" class="control-label">Número de Habitación</label>
-                <input asp-for="numero" class="form-control" />
-                <span asp-validation-for="numero" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="numero" class="form-label fw-semibold">Número de Habitación</label>
+                            <input asp-for="numero" class="form-control" />
+                            <span asp-validation-for="numero" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="piso" class="form-label fw-semibold">Piso</label>
+                            <input asp-for="piso" class="form-control" type="number" />
+                            <span asp-validation-for="piso" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="estado" class="form-label fw-semibold">Estado</label>
+                            <select asp-for="estado" class="form-select">
+                                <option value="Disponible">Disponible</option>
+                                <option value="Ocupada">Ocupada</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                                <option value="Limpieza">Limpieza</option>
+                            </select>
+                            <span asp-validation-for="estado" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="idTipoHabitacion" class="form-label fw-semibold">Tipo de Habitación</label>
+                            <select asp-for="idTipoHabitacion" class="form-select" asp-items="ViewBag.TiposHabitacion">
+                                <option value="">-- Seleccionar Tipo --</option>
+                            </select>
+                            <span asp-validation-for="idTipoHabitacion" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 mt-4 d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Volver a la lista
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="piso" class="control-label">Piso</label>
-                <input asp-for="piso" class="form-control" type="number" />
-                <span asp-validation-for="piso" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="estado" class="control-label">Estado</label>
-                <select asp-for="estado" class="form-select">
-                    <option value="Disponible">Disponible</option>
-                    <option value="Ocupada">Ocupada</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Limpieza">Limpieza</option>
-                </select>
-                <span asp-validation-for="estado" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="idTipoHabitacion" class="control-label">ID Tipo de Habitación</label>
-                <input asp-for="idTipoHabitacion" class="form-control" type="number" />
-                <span asp-validation-for="idTipoHabitacion" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

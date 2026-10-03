@@ -1,6 +1,6 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProHotel.Consumer;
 using ProHotel.Modelos;
 
@@ -9,6 +9,24 @@ namespace ProHotel.MVC.Controllers
     [Authorize]
     public class ReservasController : Controller
     {
+        private void CargarListasDesplegables(object? clienteSeleccionado = null, object? empleadoSeleccionado = null)
+        {
+            var clientes = CRUD<Cliente>.GetAll() ?? new List<Cliente>();
+            var empleados = CRUD<Empleado>.GetAll() ?? new List<Empleado>();
+
+            ViewBag.Clientes = new SelectList(clientes.Select(c => new
+            {
+                c.idCliente,
+                Descripcion = $"{c.nombre} {c.apellido} ({c.tipoDocumento}: {c.numeroDocumento})"
+            }), "idCliente", "Descripcion", clienteSeleccionado);
+
+            ViewBag.Empleados = new SelectList(empleados.Select(e => new
+            {
+                e.idEmpleado,
+                Descripcion = $"{e.nombre} {e.apellido} ({e.cargo})"
+            }), "idEmpleado", "Descripcion", empleadoSeleccionado);
+        }
+
         // GET: RESERVAS
         public ActionResult Index()
         {
@@ -30,12 +48,11 @@ namespace ProHotel.MVC.Controllers
         // GET: RESERVAS/Create
         public ActionResult Create()
         {
+            CargarListasDesplegables();
             return View();
         }
 
         // POST: RESERVAS/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Reserva reserva)
@@ -47,7 +64,7 @@ namespace ProHotel.MVC.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarListasDesplegables(reserva.idCliente, reserva.idEmpleado);
                 ModelState.AddModelError("", ex.Message);
                 return View(reserva);
             }
@@ -61,12 +78,11 @@ namespace ProHotel.MVC.Controllers
             {
                 return NotFound();
             }
+            CargarListasDesplegables(reserva.idCliente, reserva.idEmpleado);
             return View(reserva);
         }
 
         // POST: RESERVAS/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Reserva reserva)
@@ -75,11 +91,10 @@ namespace ProHotel.MVC.Controllers
             {
                 CRUD<Reserva>.Update(id, reserva);
                 return RedirectToAction(nameof(Index));
-
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log it, display an error message, etc.)
+                CargarListasDesplegables(reserva.idCliente, reserva.idEmpleado);
                 ModelState.AddModelError("", ex.Message);
                 return View(reserva);
             }

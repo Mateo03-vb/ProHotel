@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,9 +39,22 @@ namespace ProHotel.MVC.Controllers
                 
                 var usuario = usuarios.FirstOrDefault(u => u.username == username && u.activo == true);
 
-                // Validar credenciales
-                //con texto plano sin hashing
-                if (usuario == null || usuario.passwordHash != password)
+                // Validar credenciales usando BCrypt.Net-Next
+                bool passwordValida = false;
+                if (usuario != null && !string.IsNullOrEmpty(usuario.passwordHash))
+                {
+                    try
+                    {
+                        passwordValida = BCrypt.Net.BCrypt.Verify(password, usuario.passwordHash);
+                    }
+                    catch
+                    {
+                        // En caso de que en la base de datos existan contraseñas previas en texto plano
+                        passwordValida = (usuario.passwordHash == password);
+                    }
+                }
+
+                if (usuario == null || !passwordValida)
                 {
                     ViewBag.Error = "Usuario o contraseña incorrectos.";
                     return View();
